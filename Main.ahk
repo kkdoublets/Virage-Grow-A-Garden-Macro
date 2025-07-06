@@ -1,4 +1,4 @@
-; Virage GAG Macro [FREE VERSION]
+; Virage GAG Macro [PREMIUM/PAID VERSION]
 
 #SingleInstance, Force
 #NoEnv
@@ -821,11 +821,11 @@ quickDetect(color1, color2, variation := 10, x1Ratio := 0.0, y1Ratio := 0.0, x2R
 
 ; item arrays
 
-seedItems := ["Carrot Seed", "Strawberry Seed", "Blueberry Seed", "Tomato Seed"
-             , "Cauliflower Seed", "Watermelon Seed", "Rafflesia Seed"
-             , "Green Apple Seed", "Avocado Seed", "Banana Seed", "Pineapple Seed"
-             , "Kiwi Seed", "Bell Pepper Seed", "Prickly Pear Seed", "Loquat Seed"
-             , "Feijoa Seed", "Pitcher Plant", "Sugar Apple"]
+seedItems := ["Carrot Seed", "Strawberry Seed", "Blueberry Seed", "Orange Tulip", "Tomato Seed"
+             , "Daffodil Seed", "Watermelon Seed", "Pumpkin Seed", "Apple Seed", "Bamboo Seed"
+             , "Coconut Seed", "Cactus Seed", "Dragon Fruit Seed", "Mango Seed", "Grape Seed"
+             , "Mushroom Seed", "Pepper Seed", "Cacao Seed", "Beanstalk Seed", "Ember Lily"
+             , "Sugar Apple", "Burning Bud"]
 
 gearItems := ["Watering Can", "Trowel", "Recall Wrench", "Basic Sprinkler", "Advanced Sprinkler"
              , "Godly Sprinkler", "Magnifying Glass", "Tanning Mirror", "Master Sprinkler", "Cleaning Spray", "Favorite Tool", "Harvest Tool", "Friendship Pot"]
@@ -854,7 +854,7 @@ craftItems2 := ["Tropical Mist Sprinkler", "Berry Blusher Sprinkler"
 
 settingsFile := A_ScriptDir "\settings.ini"
 
-/*
+
 fff(username) {
     global GAME_PASS_ID
     username := Trim(username)
@@ -894,7 +894,7 @@ if (!isVerified) {
         ExitApp
     }
 }
-*/
+
 
 Gosub, ShowGui
 
@@ -989,7 +989,7 @@ ShowGui:
         y := 125 + (A_Index - 1) * 25
         Gui, Add, Checkbox, % "x40 y" y " vCraftItem" A_Index " gHandleSelectAll cD3D3D3 " . (cVal ? "Checked" : ""), % craftItems[A_Index]
     }
- 
+
 
     Gui, Add, GroupBox, x270 y50 w230 h380 cBF40BF, Crafting Tools
 
@@ -1035,6 +1035,10 @@ ShowGui:
     autoColor := AutoAlign ? "c90EE90" : "cD3D3D3"
     Gui, Add, Checkbox, % "x50 y250 vAutoAlign gUpdateSettingColor " . autoColor . (AutoAlign ? " Checked" : ""), Auto-Align
 
+    IniRead, MultiInstanceMode, %settingsFile%, Main, MultiInstanceMode, 0
+    multiInstanceColor := MultiInstanceMode ? "c90EE90" : "cD3D3D3"
+    Gui, Add, Checkbox, % "x50 y275 vMultiInstanceMode gUpdateSettingColor " . multiInstanceColor . (MultiInstanceMode ? " Checked" : ""), Multi-Instance Mode
+
     Gui, Font, s8 cD3D3D3 Bold, Segoe UI
     Gui, Add, Text, x50 y90, Webhook URL:
     Gui, Font, s8 cBlack, Segoe UI
@@ -1058,6 +1062,16 @@ ShowGui:
     Gui, Add, Button, x400 y115 w85 h18 gUpdateUserID Background202020, Save UserID
     IniRead, savedUserID, %settingsFile%, Main, DiscordUserID
 
+
+    Gui, Add, Text, x50 y140, Private Server:
+    Gui, Font, s8 cBlack, Segoe UI
+    IniRead, savedServerLink, %settingsFile%, Main, PrivateServerLink
+    if (savedServerLink = "ERROR") {
+        savedServerLink := ""
+    }
+    Gui, Add, Edit, x140 y140 w250 h18 vprivateServerLink +BackgroundFFFFFF, %savedServerLink%
+    Gui, Font, s8 cD3D3D3 Bold, Segoe UI
+    Gui, Add, Button, x400 y140 w85 h18 gDisplayServerValidity Background202020, Save Link
 
     Gui, Add, Button, x400 y165 w85 h18 gClearSaves Background202020, Clear Saves
 
@@ -1117,7 +1131,7 @@ Gui, Add, Edit, x180 y165 w40 h18 Limit1 vSavedKeybind gUpdateKeybind, %SavedKey
     ; Gui, Add, Button, x50 y270 w100 h25 gDonate vDonate2500 BackgroundF0F0F0, 2500 Robux
     ; Gui, Add, Button, x50 y330 w100 h25 gDonate vDonate10000 BackgroundF0F0F0, 10000 Robux
     
-    Gui, Show, w520 h460, Virage Premium GAG Macro [FREE VERSION]
+    Gui, Show, w520 h460, Virage Premium GAG Macro [PREMIUM/PAID VERSION]
 
 Return
 
